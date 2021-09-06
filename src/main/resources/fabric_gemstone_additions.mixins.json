@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.halestormxv.fabric_gemstone_additions.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+    "GemstoneAdditionsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
