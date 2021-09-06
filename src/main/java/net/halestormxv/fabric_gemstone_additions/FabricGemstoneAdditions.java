@@ -19,6 +19,6 @@ public class FabricGemstoneAdditions implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModLootInjection.modifyLootTables();
 
-		System.out.println("Hello Fabric world!");
+		System.out.println("Intialized Gemstone Additions by HalestormXV.");
 	}
 }
