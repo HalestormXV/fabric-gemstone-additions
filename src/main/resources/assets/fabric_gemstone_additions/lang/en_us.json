@@ -1,5 +1,12 @@
 {
+  "item.fabric_gemstone_additions.bloodstone": "Bloodstone",
+  "item.fabric_gemstone_additions.citrine": "Citrine",
+  "item.fabric_gemstone_additions.jasper": "Jasper",
+  "item.fabric_gemstone_additions.moonstone": "Moonstone",
   "item.fabric_gemstone_additions.ruby": "Ruby",
+  "item.fabric_gemstone_additions.sapphire": "Sapphire",
+  "item.fabric_gemstone_additions.turquoise": "Turquoise",
+  "item.fabric_gemstone_additions.emerald_tear": "Emerald Tear",
 
   "block.fabric_gemstone_additions.ruby_ore": "Ruby Ore",
 

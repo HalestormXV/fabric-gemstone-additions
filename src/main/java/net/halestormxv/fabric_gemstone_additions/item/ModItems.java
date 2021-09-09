@@ -12,6 +12,27 @@ public class ModItems {
     public static final Item RUBY = registerItem("ruby",
             new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
 
+    public static final Item SAPPHIRE = registerItem("sapphire",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
+    public static final Item JASPER = registerItem("jasper",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
+    public static final Item CITRINE = registerItem("citrine",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
+    public static final Item TURQUOISE = registerItem("turquoise",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
+    public static final Item MOONSTONE = registerItem("moonstone",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
+    public static final Item BLOODSTONE = registerItem("bloodstone",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
+    public static final Item EMERALD_TEAR = registerItem("emerald_tear",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
     private static Item registerItem(String name, Item item){
         return Registry.register(Registry.ITEM, new Identifier(FabricGemstoneAdditions.MOD_ID, name), item);
     }
