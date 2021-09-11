@@ -103,7 +103,7 @@ public class OreGenFeatures {
             .spreadHorizontally()
             .repeat(8); // Number of veins per chunk
 
-
+    @SuppressWarnings("deprecation")
     public static void registerOreGenFeatures(){
         //Ruby World Gen
         RegistryKey<ConfiguredFeature<?, ?>> oreRubyOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY,

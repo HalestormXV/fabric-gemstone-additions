@@ -1,8 +1,6 @@
 package net.halestormxv.fabric_gemstone_additions;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.halestormxv.fabric_gemstone_additions.block.ModBlocks;
 import net.halestormxv.fabric_gemstone_additions.item.ModItems;
 import net.halestormxv.fabric_gemstone_additions.util.ModLootInjection;

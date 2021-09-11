@@ -36,6 +36,7 @@ public class ModBlocks {
 
     public static final Block TURQUOISE_ORE = registerBlock("turquoise_ore", new Block(FabricBlockSettings.of(Material.STONE)
             .strength(4.0f)
+            .luminance(10)
             .breakByTool(FabricToolTags.PICKAXES, 3)
             .requiresTool()));
 
