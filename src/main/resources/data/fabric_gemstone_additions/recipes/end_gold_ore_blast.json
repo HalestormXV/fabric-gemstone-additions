@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "fabric_gemstone_additions:end_gold_ore"
+  },
+  "result": "minecraft:gold_ingot",
+  "experience": 0.6,
+  "cookingtime": 175
+}

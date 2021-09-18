@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "fabric_gemstone_additions:end_redstone_ore"
+  },
+  "result": "minecraft:redstone",
+  "experience": 0.4,
+  "cookingtime": 700
+}

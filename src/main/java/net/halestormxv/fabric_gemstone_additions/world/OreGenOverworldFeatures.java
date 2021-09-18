@@ -18,7 +18,7 @@ import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 import net.halestormxv.fabric_gemstone_additions.block.ModBlocks;
 
 @SuppressWarnings("FieldMayBeFinal")
-public class OreGenFeatures {
+public class OreGenOverworldFeatures {
     //Ruby Ore Generation Features
     private static ConfiguredFeature<?, ?> ORE_RUBY_OVERWORLD = Feature.ORE
             .configure(new OreFeatureConfig(

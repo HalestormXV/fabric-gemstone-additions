@@ -30,6 +30,9 @@ public class ModItems {
     public static final Item BLOODSTONE = registerItem("bloodstone",
             new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
 
+    public static final Item MEMORIA_INGOT = registerItem("memoria_ingot",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
     public static final Item EMERALD_TEAR = registerItem("emerald_tear",
             new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
 

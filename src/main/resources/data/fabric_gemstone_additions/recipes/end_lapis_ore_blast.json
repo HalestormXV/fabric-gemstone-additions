@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "fabric_gemstone_additions:end_lapis_ore"
+  },
+  "result": "minecraft:lapis_lazuli",
+  "experience": 0.8,
+  "cookingtime": 225
+}

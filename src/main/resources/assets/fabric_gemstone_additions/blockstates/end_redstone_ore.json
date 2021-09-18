@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "fabric_gemstone_additions:block/end_redstone_ore" }
+  }
+}

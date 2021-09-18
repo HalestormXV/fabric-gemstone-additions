@@ -7,6 +7,7 @@
   "item.fabric_gemstone_additions.sapphire": "Sapphire",
   "item.fabric_gemstone_additions.turquoise": "Turquoise",
   "item.fabric_gemstone_additions.emerald_tear": "Emerald Tear",
+  "item.fabric_gemstone_additions.memoria_ingot": "Memoria Ingot",
 
   "block.fabric_gemstone_additions.ruby_ore": "Ruby Ore",
   "block.fabric_gemstone_additions.bloodstone_ore": "Bloodstone Ore",
@@ -15,6 +16,15 @@
   "block.fabric_gemstone_additions.citrine_ore": "Citrine Ore",
   "block.fabric_gemstone_additions.jasper_ore": "Jasper Ore",
   "block.fabric_gemstone_additions.sapphire_ore": "Sapphire Ore",
+
+  "block.fabric_gemstone_additions.end_coal_ore": "Coal End-ore",
+  "block.fabric_gemstone_additions.end_iron_ore": "Iron End-ore",
+  "block.fabric_gemstone_additions.end_gold_ore": "Gold End-ore",
+  "block.fabric_gemstone_additions.end_redstone_ore": "Redstone End-ore",
+  "block.fabric_gemstone_additions.end_lapis_ore": "Lapis End-ore",
+  "block.fabric_gemstone_additions.end_diamond_ore": "Diamond End-ore",
+  "block.fabric_gemstone_additions.end_emerald_ore": "Emerald End-ore",
+  "block.fabric_gemstone_additions.end_memoria_ore": "Memoria Ore",
 
   "itemGroup.fabric_gemstone_additions.gemstones": "Gemstone Additions"
 }

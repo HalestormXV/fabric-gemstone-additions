@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "fabric_gemstone_additions:end_coal_ore"
+  },
+  "result": "minecraft:coal",
+  "experience": 0.4,
+  "cookingtime": 200
+}

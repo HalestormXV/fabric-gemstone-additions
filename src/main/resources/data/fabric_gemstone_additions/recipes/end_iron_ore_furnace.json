@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "fabric_gemstone_additions:end_iron_ore"
+  },
+  "result": "minecraft:iron_ingot",
+  "experience": 0.3,
+  "cookingtime": 400
+}

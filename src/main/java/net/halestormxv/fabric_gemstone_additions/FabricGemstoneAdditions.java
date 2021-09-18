@@ -4,7 +4,8 @@ import net.fabricmc.api.ModInitializer;
 import net.halestormxv.fabric_gemstone_additions.block.ModBlocks;
 import net.halestormxv.fabric_gemstone_additions.item.ModItems;
 import net.halestormxv.fabric_gemstone_additions.util.ModLootInjection;
-import net.halestormxv.fabric_gemstone_additions.world.OreGenFeatures;
+import net.halestormxv.fabric_gemstone_additions.world.OreGenEndFeatures;
+import net.halestormxv.fabric_gemstone_additions.world.OreGenOverworldFeatures;
 
 
 public class FabricGemstoneAdditions implements ModInitializer {
@@ -21,7 +22,8 @@ public class FabricGemstoneAdditions implements ModInitializer {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModLootInjection.modifyLootTables();
-		OreGenFeatures.registerOreGenFeatures();
+		OreGenOverworldFeatures.registerOreGenFeatures();
+		OreGenEndFeatures.registerOreGenEndFeatures();
 
 		System.out.println("Intialized Gemstone Additions by HalestormXV.");
 	}

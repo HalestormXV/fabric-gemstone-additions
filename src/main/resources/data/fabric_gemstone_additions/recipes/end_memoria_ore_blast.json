@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "fabric_gemstone_additions:end_memoria_ore"
+  },
+  "result": "fabric_gemstone_additions:memoria_ingot",
+  "experience": 1.8,
+  "cookingtime": 300
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "fabric_gemstone_additions:block/end_diamond_ore"
+  }
+}
