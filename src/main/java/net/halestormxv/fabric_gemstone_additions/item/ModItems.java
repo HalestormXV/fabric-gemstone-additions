@@ -33,6 +33,15 @@ public class ModItems {
     public static final Item MEMORIA_INGOT = registerItem("memoria_ingot",
             new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
 
+    public static final Item DIAMOND_PASTE = registerItem("diamond_paste",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
+    public static final Item UNCURED_GRINDING_BOWEL = registerItem("uncured_grinding_bowl",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
+    public static final Item CURED_GRINDING_BOWEL = registerItem("cured_grinding_bowl",
+            new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
+
     public static final Item EMERALD_TEAR = registerItem("emerald_tear",
             new Item(new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
 

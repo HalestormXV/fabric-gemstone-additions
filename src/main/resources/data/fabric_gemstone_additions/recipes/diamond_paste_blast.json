@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "minecraft:diamond"
+  },
+  "result": "fabric_gemstone_additions:diamond_paste",
+  "experience": 2.6,
+  "cookingtime": 1200
+}

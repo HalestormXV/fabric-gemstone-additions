@@ -8,6 +8,9 @@
   "item.fabric_gemstone_additions.turquoise": "Turquoise",
   "item.fabric_gemstone_additions.emerald_tear": "Emerald Tear",
   "item.fabric_gemstone_additions.memoria_ingot": "Memoria Ingot",
+  "item.fabric_gemstone_additions.diamond_paste": "Diamond Paste",
+  "item.fabric_gemstone_additions.uncured_grinding_bowl": "§bUncured Grinding Bowl",
+  "item.fabric_gemstone_additions.cured_grinding_bowl": "§3Cured Grinding Bowl",
 
   "block.fabric_gemstone_additions.ruby_ore": "Ruby Ore",
   "block.fabric_gemstone_additions.bloodstone_ore": "Bloodstone Ore",

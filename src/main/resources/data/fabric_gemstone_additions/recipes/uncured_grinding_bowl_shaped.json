@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#g#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "fabric_gemstone_additions:diamond_paste"
+    },
+    "g": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "fabric_gemstone_additions:uncured_grinding_bowl",
+    "count": 1
+  }
+}
