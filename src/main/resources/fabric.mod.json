@@ -19,6 +19,9 @@
   "entrypoints": {
     "main": [
       "net.halestormxv.fabric_gemstone_additions.FabricGemstoneAdditions"
+    ],
+    "client": [
+      "net.halestormxv.fabric_gemstone_additions.FGA_Client"
     ]
   },
   "mixins": [

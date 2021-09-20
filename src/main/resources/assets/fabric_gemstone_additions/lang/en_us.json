@@ -1,4 +1,6 @@
 {
+  "biome.fabric_gemstone_additions.customland": "Custom Land",
+
   "item.fabric_gemstone_additions.bloodstone": "Bloodstone",
   "item.fabric_gemstone_additions.citrine": "Citrine",
   "item.fabric_gemstone_additions.jasper": "Jasper",
@@ -11,6 +13,16 @@
   "item.fabric_gemstone_additions.diamond_paste": "Diamond Paste",
   "item.fabric_gemstone_additions.uncured_grinding_bowl": "§bUncured Grinding Bowl",
   "item.fabric_gemstone_additions.cured_grinding_bowl": "§3Cured Grinding Bowl",
+  "item.fabric_gemstone_additions.obsidian_stick": "Obsidian Stick",
+  "item.fabric_gemstone_additions.mortar_and_pestle": "§3Mortar and Pestle",
+  "item.fabric_gemstone_additions.bloodstone_dust": "Bloodstone Dust",
+  "item.fabric_gemstone_additions.citrine_dust": "Citrine Dust",
+  "item.fabric_gemstone_additions.jasper_dust": "Jasper Dust",
+  "item.fabric_gemstone_additions.moonstone_dust": "Moonstone Dust",
+  "item.fabric_gemstone_additions.ruby_dust": "Ruby Dust",
+  "item.fabric_gemstone_additions.sapphire_dust": "Sapphire Dust",
+  "item.fabric_gemstone_additions.turquoise_dust": "Turquoise Dust",
+  "item.fabric_gemstone_additions.cestrium_bucket": "Cestrium Bucket",
 
   "block.fabric_gemstone_additions.ruby_ore": "Ruby Ore",
   "block.fabric_gemstone_additions.bloodstone_ore": "Bloodstone Ore",
@@ -19,6 +31,7 @@
   "block.fabric_gemstone_additions.citrine_ore": "Citrine Ore",
   "block.fabric_gemstone_additions.jasper_ore": "Jasper Ore",
   "block.fabric_gemstone_additions.sapphire_ore": "Sapphire Ore",
+  "block.fabric_gemstone_additions.cestrium_fluid_block": "Liquid Cestrium",
 
   "block.fabric_gemstone_additions.end_coal_ore": "Coal End-ore",
   "block.fabric_gemstone_additions.end_iron_ore": "Iron End-ore",

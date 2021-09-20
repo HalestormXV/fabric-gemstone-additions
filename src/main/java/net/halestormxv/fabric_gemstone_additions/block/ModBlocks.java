@@ -4,9 +4,11 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.halestormxv.fabric_gemstone_additions.FabricGemstoneAdditions;
+import net.halestormxv.fabric_gemstone_additions.fluids._FluidRegistry;
 import net.halestormxv.fabric_gemstone_additions.item.ModItemGroup;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FluidBlock;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -53,10 +55,23 @@ public class ModBlocks {
     public static final Block EMERALD_ORE_END = registerBlock("end_emerald_ore", new Block(FabricBlockSettings.of(Material.STONE).strength(6.0f).breakByTool(FabricToolTags.PICKAXES, 4).requiresTool()));
     public static final Block MEMORIA_ORE_END = registerBlock("end_memoria_ore", new Block(FabricBlockSettings.of(Material.STONE).strength(7.0f).breakByTool(FabricToolTags.PICKAXES, 4).requiresTool()));
 
+    //FLUID BLOCKS\\
+    public static final Block CESTRIUM_FLUID_BLOCK = registerFluidBlock("cestrium_fluid_block", new FluidBlock(_FluidRegistry.CESTRIUM_STILL, FabricBlockSettings.copy(Blocks.WATER)){});
+
+
+
+
+    //REGISTRY METHODS
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);
         return Registry.register(Registry.BLOCK, new Identifier(FabricGemstoneAdditions.MOD_ID, name), block);
     }
+
+    private static Block registerFluidBlock(String name, Block fluidBlock){
+        registerBlockItem(name, fluidBlock);
+        return Registry.register(Registry.BLOCK, new Identifier(FabricGemstoneAdditions.MOD_ID, name), fluidBlock);
+    }
+
     private static Item registerBlockItem(String name, Block block){
         return Registry.register(Registry.ITEM, new Identifier(FabricGemstoneAdditions.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings().group(ModItemGroup.GS_ADDITIONS)));
