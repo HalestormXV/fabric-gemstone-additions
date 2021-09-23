@@ -7,9 +7,7 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.halestormxv.fabric_gemstone_additions.block.ModBlocks;
 import net.halestormxv.fabric_gemstone_additions.fluids._FluidRegistry;
-import net.halestormxv.fabric_gemstone_additions.fluids._ModFluids;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;

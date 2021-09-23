@@ -58,9 +58,6 @@ public class ModBlocks {
     //FLUID BLOCKS\\
     public static final Block CESTRIUM_FLUID_BLOCK = registerFluidBlock("cestrium_fluid_block", new FluidBlock(_FluidRegistry.CESTRIUM_STILL, FabricBlockSettings.copy(Blocks.WATER)){});
 
-
-
-
     //REGISTRY METHODS
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);

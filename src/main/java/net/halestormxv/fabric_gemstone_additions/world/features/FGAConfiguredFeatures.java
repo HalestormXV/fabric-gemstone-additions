@@ -13,5 +13,5 @@ public class FGAConfiguredFeatures {
 
     public static final ConfiguredFeature<?, ?> CESTRIUM_LAKE_FEATURE = WorldGenRegistrationHelper.createConfiguredFeature("cestrium_lake_feature",
                             FGAFeatures.CESTRIUM_LAKE.configure(new SimpleBlockFeatureConfig(new SimpleBlockStateProvider(Blocks.WATER.getDefaultState())))
-            .decorate(Decorator.LAVA_LAKE.configure(new ChanceDecoratorConfig(100))));
+            .decorate(Decorator.CHANCE.configure(new ChanceDecoratorConfig(100))));
 }

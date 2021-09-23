@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "fabric_gemstone_additions:mortar_and_pestle"
+    },
+    {
+      "item": "fabric_gemstone_additions:moonstone"
+    },
+    {
+      "item": "fabric_gemstone_additions:cestrium_bucket"
+    }
+  ],
+  "result": {
+    "item": "fabric_gemstone_additions:moonstone_dust",
+    "count": 1
+  }
+}

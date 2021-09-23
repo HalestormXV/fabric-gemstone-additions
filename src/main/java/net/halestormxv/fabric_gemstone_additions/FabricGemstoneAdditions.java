@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
+import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.halestormxv.fabric_gemstone_additions.block.ModBlocks;
 import net.halestormxv.fabric_gemstone_additions.fluids._FluidRegistry;
 import net.halestormxv.fabric_gemstone_additions.item.ModItems;
@@ -13,7 +14,10 @@ import net.halestormxv.fabric_gemstone_additions.world.OreGenEndFeatures;
 import net.halestormxv.fabric_gemstone_additions.world.OreGenOverworldFeatures;
 import net.halestormxv.fabric_gemstone_additions.world.features.FGADefaultBiomeFeatures;
 import net.halestormxv.fabric_gemstone_additions.world.features.FGAFeatures;
+//import net.halestormxv.fabric_gemstone_additions.world.structures.MyPiece;
+//import net.halestormxv.fabric_gemstone_additions.world.structures.Structure1;
 import net.minecraft.block.Blocks;
+import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -23,24 +27,26 @@ import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
-import net.minecraft.world.gen.feature.LakeFeature;
-import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
-@Deprecated
+@SuppressWarnings("deprecated")
 public class FabricGemstoneAdditions implements ModInitializer {
 	public static final String MOD_ID = "fabric_gemstone_additions";
 
+	// STRUCTURES \\
+	//public static final StructurePieceType MY_PIECE = MyPiece::new;
+	//private static final StructureFeature<DefaultFeatureConfig> MY_STRUCTURE = new Structure1(DefaultFeatureConfig.CODEC);
+	//private static final ConfiguredStructureFeature<?, ?> MY_CONFIGURED = MY_STRUCTURE.configure(DefaultFeatureConfig.DEFAULT);
+
+
+	// BIOMES SECTION \\
 	private final static ConfiguredSurfaceBuilder<TernarySurfaceConfig> CUSTOM_SURFACE_BUILDER_0 = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(
-			Blocks.BASALT.getDefaultState(),
-			Blocks.GRAY_TERRACOTTA.getDefaultState(),
-			Blocks.GRAVEL.getDefaultState()));
+			Blocks.MYCELIUM.getDefaultState(),
+			Blocks.STONE.getDefaultState(),
+			Blocks.TERRACOTTA.getDefaultState()));
 
 	private static final Biome CUSTOMLAND = createCustomLand();
 
@@ -51,6 +57,10 @@ public class FabricGemstoneAdditions implements ModInitializer {
 
 		GenerationSettings.Builder generatorSettings = new GenerationSettings.Builder();
 		generatorSettings.surfaceBuilder(CUSTOM_SURFACE_BUILDER_0);
+		DefaultBiomeFeatures.addInfestedStone(generatorSettings);
+		DefaultBiomeFeatures.addDefaultMushrooms(generatorSettings);
+		DefaultBiomeFeatures.addMushroomFieldsFeatures(generatorSettings);
+		DefaultBiomeFeatures.addDesertLakes(generatorSettings);
 		DefaultBiomeFeatures.addDungeons(generatorSettings);
 		DefaultBiomeFeatures.addMineables(generatorSettings);
 		DefaultBiomeFeatures.addLandCarvers(generatorSettings);
@@ -79,13 +89,23 @@ public class FabricGemstoneAdditions implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		//Structures Registration
+		//Registry.register(Registry.STRUCTURE_PIECE, new Identifier(MOD_ID, "my_piece"), MY_PIECE);
+		/*FabricStructureBuilder.create(new Identifier(MOD_ID, "my_structure"), MY_STRUCTURE)
+				.step(GenerationStep.Feature.SURFACE_STRUCTURES)
+				.defaultConfig(32, 8, 12345)
+				.adjustsSurface()
+				.register();
+		RegistryKey<ConfiguredStructureFeature<?, ?>> myConfigured = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY, new Identifier(MOD_ID, "my_structure"));
+		BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, myConfigured.getValue(), MY_CONFIGURED);
+		BiomeModifications.addStructure(BiomeSelectors.all(), myConfigured);*/
+
+		//Biomes Registration
 		Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, new Identifier(MOD_ID, "basalt"), CUSTOM_SURFACE_BUILDER_0);
 		Registry.register(BuiltinRegistries.BIOME, CUSTOMLAND_KEY.getValue(), CUSTOMLAND);
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
 		OverworldBiomes.addContinentalBiome(CUSTOMLAND_KEY, OverworldClimate.TEMPERATE, 2D);
 		OverworldBiomes.addContinentalBiome(CUSTOMLAND_KEY, OverworldClimate.COOL, 2D);
+		//Mod Stuffs Registration
 		_FluidRegistry.registerModFluids();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
@@ -97,13 +117,6 @@ public class FabricGemstoneAdditions implements ModInitializer {
 		FGAWorldGenRegistries.registerFeatures();
 		RegistryKey<ConfiguredFeature<?, ?>> cestriumLakeFeature = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MOD_ID, "cestrium_lake_feature"));
 		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.RAW_GENERATION, cestriumLakeFeature);
-
-		//BIOME FILTER METHOD TO AVOID USING MIXINS????
-		/*BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().and(context -> { Biome biome = context.getBiome();
-			return biome.getCategory() == Biome.Category.SWAMP;}), GenerationStep.Feature.LAKES,  cestriumLakeFeature);*/
-
-
-
 		System.out.println("Intialized Gemstone Additions by HalestormXV.");
 	}
 
@@ -113,3 +126,7 @@ public class FabricGemstoneAdditions implements ModInitializer {
 		}
 	}
 }
+
+//BIOME FILTER METHOD TO AVOID USING MIXINS????
+		/*BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().and(context -> { Biome biome = context.getBiome();
+			return biome.getCategory() == Biome.Category.SWAMP;}), GenerationStep.Feature.LAKES,  cestriumLakeFeature);*/
