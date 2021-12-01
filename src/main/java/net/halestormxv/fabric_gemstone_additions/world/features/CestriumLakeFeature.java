@@ -3,9 +3,9 @@ package net.halestormxv.fabric_gemstone_additions.world.features;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.halestormxv.fabric_gemstone_additions.block.ModBlocks;
 import net.halestormxv.fabric_gemstone_additions.fluids._FluidRegistry;
-import net.halestormxv.fabric_gemstone_additions.fluids._ModFluids;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -13,20 +13,23 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.noise.OctaveSimplexNoiseSampler;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkRandom;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.SimpleBlockFeatureConfig;
+import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
-import net.minecraft.world.gen.stateprovider.BlockStateProviderType;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
-import java.util.Random;
 import java.util.Set;
 
-public class CestriumLake extends Feature<SimpleBlockFeatureConfig> {
+public class CestriumLakeFeature extends Feature<CestriumLakeConfig> {
+    public CestriumLakeFeature(Codec<CestriumLakeConfig> configCodec){
+        super(configCodec);
+    }
 
     protected static final Set<Material> unacceptableSolidMaterials = ImmutableSet.of(
             Material.BAMBOO,
@@ -51,17 +54,13 @@ public class CestriumLake extends Feature<SimpleBlockFeatureConfig> {
         this.noiseSeed = seed;
     }
 
-    public CestriumLake(Codec<SimpleBlockFeatureConfig> configFactory){
-        super(configFactory);
-    }
-
     @Override
-    public boolean generate(FeatureContext<SimpleBlockFeatureConfig> context) {
+    public boolean generate(FeatureContext<CestriumLakeConfig> context) {
         StructureWorldAccess worldAccess = context.getWorld();
         setNoiseSeed(worldAccess.getSeed());
-        BlockPos blockPos = context.getOrigin();
-        BlockPos.Mutable mutable = new BlockPos.Mutable().set(blockPos.down(2)); //Goes Down 2 Blocks
-
+        BlockPos topPos = context.getWorld().getTopPosition(Heightmap.Type.OCEAN_FLOOR_WG, context.getOrigin());
+        Direction offset = Direction.NORTH;
+        BlockPos.Mutable mutable = new BlockPos.Mutable().set(topPos.down(2)); //Goes Down 2 Blocks
         //Create the Lakes
         boolean containedFlag;
         Material material;
@@ -72,14 +71,13 @@ public class CestriumLake extends Feature<SimpleBlockFeatureConfig> {
                 int zTemp = z - 10;
                 //Circle Shape
                 if (xTemp * xTemp + zTemp * zTemp < 64) {
-
                     double samplePerlin1 = (this.noiseGen.sample(
-                            blockPos.getX() + x * 0.05D,
-                            blockPos.getZ() + z * 0.05D,
+                            topPos.getX() + x * 0.05D,
+                            topPos.getZ() + z * 0.05D,
                             true) + 1) * 3.0D;
                     for (int y = 0; y > -samplePerlin1; --y) {
 
-                        mutable.set(blockPos).move(x, y, z);
+                        mutable.set(topPos).move(x, y, z);
 
                         //Check if the Spot is Solid Around, Nothing Solid Above
                         containedFlag = checkIfValidSpot(worldAccess, mutable, samplePerlin1);
@@ -89,7 +87,7 @@ public class CestriumLake extends Feature<SimpleBlockFeatureConfig> {
 
                             //check below
                             //set the fluid block
-                            BlockState configState = context.getConfig().toPlace.getBlockState(context.getRandom(), mutable);
+                            BlockState configState = context.getWorld().getBlockState(topPos);
                             worldAccess.setBlockState(mutable, configState, 3);
                             if (configState == Blocks.WATER.getDefaultState())
                                 worldAccess.getFluidTickScheduler().schedule(mutable, Fluids.WATER, 0);
@@ -113,16 +111,16 @@ public class CestriumLake extends Feature<SimpleBlockFeatureConfig> {
                                 worldAccess.setBlockState(mutable, Blocks.AIR.getDefaultState(), 2);
                                 worldAccess.setBlockState(mutable.up(), Blocks.AIR.getDefaultState(), 2);
                             }
-                                    //Recursively Move Down and Replace Water with Cestrium
-                                    //while (mutable.getY() < worldAccess.getHeight() && worldAccess.getBlockState(mutable.move(Direction.DOWN)) == Blocks.LAVA.getDefaultState()) {
-                                    while (mutable.getY() < worldAccess.getHeight() && worldAccess.getBlockState(mutable.move(Direction.DOWN)) == Blocks.WATER.getDefaultState()) {
-                                        worldAccess.setBlockState(mutable, ModBlocks.CESTRIUM_FLUID_BLOCK.getDefaultState(), 2);
-                                        worldAccess.getFluidTickScheduler().schedule(mutable, _FluidRegistry.CESTRIUM_STILL, 0);
-                                    }
-                                    //while (mutable.getY() < worldAccess.getHeight() && worldAccess.getBlockState(mutable.move(Direction.DOWN)) == Blocks.LAVA.getDefaultState()) {
-                                    //worldAccess.setBlockState(mutable, ModBlocks.CESTRIUM_FLUID_BLOCK.getDefaultState(), 2);
-                                    //worldAccess.getFluidTickScheduler().schedule(mutable, _FluidRegistry.CESTRIUM_STILL, 0);
-                                //}
+                            //Recursively Move Down and Replace Water with Cestrium
+                            //while (mutable.getY() < worldAccess.getHeight() && worldAccess.getBlockState(mutable.move(Direction.DOWN)) == Blocks.LAVA.getDefaultState()) {
+                            while (mutable.getY() < worldAccess.getHeight() && worldAccess.getBlockState(mutable.move(Direction.DOWN)) == Blocks.WATER.getDefaultState()) {
+                                worldAccess.setBlockState(mutable, ModBlocks.CESTRIUM_FLUID_BLOCK.getDefaultState(), 2);
+                                worldAccess.getFluidTickScheduler().schedule(mutable, _FluidRegistry.CESTRIUM_STILL, 0);
+                            }
+                            //while (mutable.getY() < worldAccess.getHeight() && worldAccess.getBlockState(mutable.move(Direction.DOWN)) == Blocks.LAVA.getDefaultState()) {
+                            //worldAccess.setBlockState(mutable, ModBlocks.CESTRIUM_FLUID_BLOCK.getDefaultState(), 2);
+                            //worldAccess.getFluidTickScheduler().schedule(mutable, _FluidRegistry.CESTRIUM_STILL, 0);
+                            //}
                         }
                     }
                 }
@@ -150,7 +148,7 @@ public class CestriumLake extends Feature<SimpleBlockFeatureConfig> {
                 BlockTags.PLANKS.contains(blockState.getBlock())) &&
                 blockState.getFluidState().isEmpty() &&
                 blockState.getFluidState() != Fluids.WATER.getStill(false)){
-                //blockState.getFluidState() != Fluids.LAVA.getStill(false)){
+            //blockState.getFluidState() != Fluids.LAVA.getStill(false)){
             return false;
         }
         //place water on tip
@@ -172,7 +170,7 @@ public class CestriumLake extends Feature<SimpleBlockFeatureConfig> {
                         BlockTags.PLANKS.contains(blockState.getBlock())) &&
                         blockState.getFluidState().isEmpty() &&
                         blockState.getFluidState() != Fluids.WATER.getStill(false)){
-                        //blockState.getFluidState() != Fluids.LAVA.getStill(false)) {
+                    //blockState.getFluidState() != Fluids.LAVA.getStill(false)) {
                     return false;
                 }
             }
@@ -180,3 +178,4 @@ public class CestriumLake extends Feature<SimpleBlockFeatureConfig> {
         return true;
     }
 }
+

@@ -5,29 +5,30 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
-import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.halestormxv.fabric_gemstone_additions.block.ModBlocks;
 import net.halestormxv.fabric_gemstone_additions.fluids._FluidRegistry;
 import net.halestormxv.fabric_gemstone_additions.item.ModItems;
 import net.halestormxv.fabric_gemstone_additions.util.ModLootInjection;
 import net.halestormxv.fabric_gemstone_additions.world.OreGenEndFeatures;
 import net.halestormxv.fabric_gemstone_additions.world.OreGenOverworldFeatures;
-import net.halestormxv.fabric_gemstone_additions.world.features.FGADefaultBiomeFeatures;
-import net.halestormxv.fabric_gemstone_additions.world.features.FGAFeatures;
-//import net.halestormxv.fabric_gemstone_additions.world.structures.MyPiece;
-//import net.halestormxv.fabric_gemstone_additions.world.structures.Structure1;
+import net.halestormxv.fabric_gemstone_additions.world.features.CestriumLakeConfig;
+import net.halestormxv.fabric_gemstone_additions.world.features.CestriumLakeFeature;
 import net.minecraft.block.Blocks;
-import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.decorator.HeightmapDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
@@ -37,9 +38,11 @@ public class FabricGemstoneAdditions implements ModInitializer {
 	public static final String MOD_ID = "fabric_gemstone_additions";
 
 	// STRUCTURES \\
-	//public static final StructurePieceType MY_PIECE = MyPiece::new;
-	//private static final StructureFeature<DefaultFeatureConfig> MY_STRUCTURE = new Structure1(DefaultFeatureConfig.CODEC);
-	//private static final ConfiguredStructureFeature<?, ?> MY_CONFIGURED = MY_STRUCTURE.configure(DefaultFeatureConfig.DEFAULT);
+	private static final Feature<CestriumLakeConfig> CESTRIUM_LAKE = new CestriumLakeFeature(CestriumLakeConfig.CODEC);
+	public static final ConfiguredFeature<?, ?> CESTRIUM_LAKE_FEATURE = CESTRIUM_LAKE.configure(new CestriumLakeConfig(ConstantIntProvider.create(3), new SimpleBlockStateProvider(Blocks.STONE.getDefaultState())))
+			.decorate(Decorator.HEIGHTMAP.configure(new HeightmapDecoratorConfig(Heightmap.Type.OCEAN_FLOOR_WG)))
+			.spreadHorizontally()
+			.applyChance(85);
 
 
 	// BIOMES SECTION \\
@@ -65,7 +68,6 @@ public class FabricGemstoneAdditions implements ModInitializer {
 		DefaultBiomeFeatures.addMineables(generatorSettings);
 		DefaultBiomeFeatures.addLandCarvers(generatorSettings);
 		DefaultBiomeFeatures.addDefaultUndergroundStructures(generatorSettings);
-		FGADefaultBiomeFeatures.addLargeLake(generatorSettings);
 
 		return (new Biome.Builder())
 				.precipitation(Biome.Precipitation.RAIN)
@@ -89,17 +91,6 @@ public class FabricGemstoneAdditions implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		//Structures Registration
-		//Registry.register(Registry.STRUCTURE_PIECE, new Identifier(MOD_ID, "my_piece"), MY_PIECE);
-		/*FabricStructureBuilder.create(new Identifier(MOD_ID, "my_structure"), MY_STRUCTURE)
-				.step(GenerationStep.Feature.SURFACE_STRUCTURES)
-				.defaultConfig(32, 8, 12345)
-				.adjustsSurface()
-				.register();
-		RegistryKey<ConfiguredStructureFeature<?, ?>> myConfigured = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY, new Identifier(MOD_ID, "my_structure"));
-		BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, myConfigured.getValue(), MY_CONFIGURED);
-		BiomeModifications.addStructure(BiomeSelectors.all(), myConfigured);*/
-
 		//Biomes Registration
 		Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, new Identifier(MOD_ID, "basalt"), CUSTOM_SURFACE_BUILDER_0);
 		Registry.register(BuiltinRegistries.BIOME, CUSTOMLAND_KEY.getValue(), CUSTOMLAND);
@@ -112,18 +103,12 @@ public class FabricGemstoneAdditions implements ModInitializer {
 		ModLootInjection.modifyLootTables();
 		OreGenOverworldFeatures.registerOreGenFeatures();
 		OreGenEndFeatures.registerOreGenEndFeatures();
+		Registry.register(Registry.FEATURE, new Identifier(MOD_ID, "cestrium_lake"), CESTRIUM_LAKE);
 
-		//Wide Cestrium Lake\\
-		FGAWorldGenRegistries.registerFeatures();
-		RegistryKey<ConfiguredFeature<?, ?>> cestriumLakeFeature = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MOD_ID, "cestrium_lake_feature"));
-		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.RAW_GENERATION, cestriumLakeFeature);
+		RegistryKey<ConfiguredFeature<?, ?>> cestriumLake = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MOD_ID, "cestrium_lake_feature"));
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, cestriumLake.getValue(),CESTRIUM_LAKE_FEATURE);
+		BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.SURFACE_STRUCTURES, cestriumLake);
 		System.out.println("Intialized Gemstone Additions by HalestormXV.");
-	}
-
-	public static class FGAWorldGenRegistries{
-		public static void registerFeatures(){
-			FGAFeatures.init();
-		}
 	}
 }
 

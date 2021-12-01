@@ -6,8 +6,7 @@
   "mixins": [
   ],
   "client": [
-    "GemstoneAdditionsMixin",
-    "BiomeFeaturesMixin"
+    "GemstoneAdditionsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

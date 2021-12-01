@@ -1,7 +1,6 @@
 package net.halestormxv.fabric_gemstone_additions.world;
 
 import net.halestormxv.fabric_gemstone_additions.FabricGemstoneAdditions;
-import net.halestormxv.fabric_gemstone_additions.world.features.FGAFeatures;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -17,7 +16,6 @@ public class WorldGenRegistrationHelper {
             throw new IllegalStateException("Feature ID: \"" + fgaID.toString() + "\" already exists in registry.");
 
         Registry.register(Registry.FEATURE, fgaID, feature);
-        FGAFeatures.features.add(feature);
         return feature;
     }
 
